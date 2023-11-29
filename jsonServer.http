@@ -1,0 +1,2 @@
+
+GET  {{JSON_SERVER_BASE_URL}}/letters

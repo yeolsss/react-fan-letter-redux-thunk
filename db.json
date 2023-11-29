@@ -1,0 +1,12 @@
+{
+  "letters": [
+    {
+      "id": 1,
+      "writedTo": "2",
+      "nickname": "test",
+      "content": "test",
+      "createdAt": "test",
+      "avatar": "test"
+    }
+  ]
+}
