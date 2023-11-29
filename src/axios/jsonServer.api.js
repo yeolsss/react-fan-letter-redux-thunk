@@ -15,7 +15,19 @@ jsonServerInstance.interceptors.request.use(
     }
   },
   async (error) => {
-    console.log('인터셉터 요청 오류!');
+    return Promise.reject(error);
+  },
+);
+
+jsonServerInstance.interceptors.response.use(
+  async (config) => {
+    if (await checkToken()) {
+      return config;
+    } else {
+      return new Error('Not Token found');
+    }
+  },
+  async (error) => {
     return Promise.reject(error);
   },
 );

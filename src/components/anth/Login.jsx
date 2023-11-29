@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom';
 import ShardInput from '../../shared/ShardInput.jsx';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import 'react-toastify/ReactToastify.min.css';
 import { StButton, StForm, StTitle, StWrapper } from './style.js';
-import { __login } from '../../redux/config/module/auth.slice.js';
+import api from '../../axios/auth.api.jsx';
+import {
+  selectorLoginData,
+  setLogin,
+} from '../../redux/config/module/login.slice.js';
+import { printError } from '../../redux/config/module/error.slice.js';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -22,13 +27,20 @@ const Login = () => {
     });
   };
 
-  const handleOnSubmitLogin = (event) => {
+  const handleOnSubmitLogin = async (event) => {
     event.preventDefault();
     const newLoginUser = {
       id: signUpState.id,
       password: signUpState.password,
     };
-    dispatch(__login(newLoginUser));
+    // 비동기 처리
+    try {
+      const response = await api.post('/login', newLoginUser);
+      dispatch(setLogin(response.data));
+    } catch (error) {
+      dispatch(printError({ isError: true, errorMessage: error.message }));
+      console.error(error);
+    }
   };
 
   return (
@@ -63,5 +75,4 @@ const Login = () => {
     </>
   );
 };
-
 export default Login;

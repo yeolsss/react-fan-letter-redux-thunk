@@ -1,4 +1,5 @@
-import authInstance from '../axios/auth.api.js';
+import authInstance from '../axios/auth.api.jsx';
+import { useDispatch } from 'react-redux';
 
 export const DETAIL_PATH = '/detail/:memberId/:id';
 export const getMembers = [
@@ -68,7 +69,11 @@ export const checkToken = async () => {
   ] = `Bearer ${accessToken}`;
 
   // 있다면 토큰을 검증.
-  const response = await authInstance.get('/user');
-
-  return !!response.data.success;
+  try {
+    const response = await authInstance.get('/user');
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 };

@@ -1,10 +1,7 @@
 import { useMatch, useNavigate } from 'react-router-dom';
 import SignUp from '../components/anth/SignUp.jsx';
 import { useSelector } from 'react-redux';
-import {
-  selectLogin,
-  selectSignUp,
-} from '../redux/config/module/auth.slice.js';
+import { selectSignUp } from '../redux/config/module/auth.slice.js';
 import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import Login from '../components/anth/Login.jsx';
@@ -17,13 +14,6 @@ export const Auth = () => {
     error: signUpError,
   } = useSelector(selectSignUp);
   const navigate = useNavigate();
-  const {
-    isLoading: isLoginLoading,
-    isError: isLoginError,
-    isSuccess: isLoginSuccess,
-    error: loginError,
-    token: accessToken,
-  } = useSelector(selectLogin);
 
   useEffect(() => {
     if (isSignUpSuccess) {
@@ -52,32 +42,6 @@ export const Auth = () => {
       });
     }
   }, [isSignUpError, isSignUpSuccess]);
-
-  useEffect(() => {
-    if (isLoginSuccess) {
-      toast.success('로그인이 완료되었습니다.', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: 'light',
-      });
-    }
-
-    if (isLoginError) {
-      toast.error(`${loginError}`, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: 'light',
-      });
-    }
-  }, [isLoginLoading, isLoginError, isLoginSuccess, loginError]);
 
   return (
     <>
