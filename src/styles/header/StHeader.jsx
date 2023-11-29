@@ -69,7 +69,6 @@ export const StHeaderBtnLi = styled.li`
 `;
 
 export const StHomeBtn = styled.button`
-  position: absolute;
   top: 2rem;
   left: 40rem;
   font-size: 2rem;
@@ -87,4 +86,18 @@ export const StHomeBtn = styled.button`
     background-color: var(--bg-color);
     color: var(--text-color);
   }
+  &:nth-child(2) {
+    width: 15rem;
+  }
+`;
+
+export const StButtonWrapper = styled.section`
+  position: absolute;
+  top: -7rem;
+  right: 10rem;
+  width: 40rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 `;

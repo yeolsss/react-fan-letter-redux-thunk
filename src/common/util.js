@@ -1,4 +1,4 @@
-import authInstance from '../axios/auth.api.jsx';
+import authInstance from '../axios/auth.api.js';
 import { useDispatch } from 'react-redux';
 
 export const DETAIL_PATH = '/detail/:memberId/:id';

@@ -1,18 +1,23 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ShardInput from '../../shared/ShardInput.jsx';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-toastify/ReactToastify.min.css';
 import { StButton, StForm, StTitle, StWrapper } from './style.js';
-import api from '../../axios/auth.api.jsx';
+import api from '../../axios/auth.api.js';
 import {
   selectorLoginData,
   setLogin,
 } from '../../redux/config/module/login.slice.js';
 import { printError } from '../../redux/config/module/error.slice.js';
+import {
+  printSuccess,
+  selectSuccess,
+} from '../../redux/config/module/success.slice.js';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [signUpState, setSignUpState] = useState({
     id: '',
@@ -37,8 +42,21 @@ const Login = () => {
     try {
       const response = await api.post('/login', newLoginUser);
       dispatch(setLogin(response.data));
+      dispatch(
+        printSuccess({
+          isSuccess: true,
+          successMessage: '로그인이 되었습니다.',
+        }),
+      );
+      navigate('/');
     } catch (error) {
-      dispatch(printError({ isError: true, errorMessage: error.message }));
+      console.log(error);
+      dispatch(
+        printError({
+          isError: true,
+          errorMessage: error.response.data.message,
+        }),
+      );
       console.error(error);
     }
   };

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import api from '../../../axios/auth.api.jsx';
+import api from '../../../axios/auth.api.js';
 import { printError } from './error.slice.js';
 
 const initialState = {
@@ -17,7 +17,12 @@ export const __signUp = createAsyncThunk(
       const response = await api.post(`/register`, payload);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
-      thunkAPI.dispatch(printError(true, error));
+      thunkAPI.dispatch(
+        printError({
+          isError: true,
+          errorMessage: error.response.data.message,
+        }),
+      );
       return thunkAPI.rejectWithValue(error);
     }
   },

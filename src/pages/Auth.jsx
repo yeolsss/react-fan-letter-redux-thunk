@@ -29,18 +29,6 @@ export const Auth = () => {
       });
       navigate('/login');
     }
-    if (isSignUpError) {
-      toast.error(`${signUpError}`, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
-    }
   }, [isSignUpError, isSignUpSuccess]);
 
   return (
