@@ -10,8 +10,11 @@ import {
   StWriterInfoWrapper,
 } from '../styles/detail/StDetail';
 import { validData } from '../common/util';
-import { deleteLetter, updateLetter } from '../redux/config/module/letter.js';
-import { setCurrentMember } from '../redux/config/module/member.js';
+import {
+  deleteLetter,
+  updateLetter,
+} from '../redux/config/module/letter.slice.js';
+import { setCurrentMember } from '../redux/config/module/member.slice.js';
 
 function Detail() {
   const { id: parmaId, memberId } = useParams();

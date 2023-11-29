@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import MultiButton from '../MultiButton';
 import { StForm, StSelector } from '../../styles/StInputForm';
 import { Letter, getDate, validData } from '../../common/util';
-import { addLetter } from '../../redux/config/module/letter.js';
-import { setCurrentMember } from '../../redux/config/module/member.js';
+import { addLetter } from '../../redux/config/module/letter.slice.js';
+import { setCurrentMember } from '../../redux/config/module/member.slice.js';
 
 function LetterForm() {
   const member = useSelector((state) => state.member);

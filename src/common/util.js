@@ -1,3 +1,5 @@
+import authInstance from '../axios/auth.api.js';
+
 export const DETAIL_PATH = '/detail/:memberId/:id';
 export const getMembers = [
   new Member('0', '권경열', ''),
@@ -50,9 +52,23 @@ export const validData = (state, msg, ref) => {
     ref.current.focus();
     return true;
   }
-  console.log(
-    '🚀 ~ file: util.js:47 ~ validData ~ state.length:',
-    state.length,
-  );
   return false;
+};
+
+export const checkToken = async () => {
+  // localStorage에 있는 토큰 가져옴
+  const accessToken = localStorage.getItem('accessToken');
+
+  // 토큰이 없으면 오류를 반환 및 처리
+  if (!accessToken) {
+    return false;
+  }
+  authInstance.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${accessToken}`;
+
+  // 있다면 토큰을 검증.
+  const response = await authInstance.get('/user');
+
+  return !!response.data.success;
 };

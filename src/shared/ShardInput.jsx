@@ -8,12 +8,13 @@ const ShardInput = ({
   minLength,
   maxLength,
   placeholder,
+  inputType,
 }) => {
   return (
     <StInput
       type={type}
       value={value}
-      onChange={(e) => onChange(e, type)}
+      onChange={(e) => onChange(e, inputType)}
       minLength={minLength}
       maxLength={maxLength}
       placeholder={placeholder}

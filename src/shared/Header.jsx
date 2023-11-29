@@ -4,9 +4,10 @@ import { useSelector } from 'react-redux';
 import HeaderButton from '../components/header/HeaderButton';
 import { StHeader, StHomeBtn, StNav } from '../styles/header/StHeader';
 import { DETAIL_PATH } from '../common/util';
+import { selectorMember } from '../redux/config/module/member.slice.js';
 
 function Header() {
-  const member = useSelector((state) => state.member);
+  const member = useSelector(selectorMember);
   const navigate = useNavigate();
   const match = useMatch(DETAIL_PATH);
 
