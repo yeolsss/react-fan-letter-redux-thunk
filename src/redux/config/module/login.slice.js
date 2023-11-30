@@ -37,6 +37,7 @@ export const __getLoginState = createAsyncThunk(
         setLogin({ ...response.data, accessToken: accessToken }),
       );
     } catch (error) {
+      thunkAPI.dispatch(setIsLoading(false));
       thunkAPI.dispatch(
         printError({
           isError: true,
