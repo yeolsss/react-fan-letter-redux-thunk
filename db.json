@@ -33,6 +33,15 @@
       "content": "하이욧!",
       "createdAt": "2023.11.30 17:34:13",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/d13f1923-7a81-4b0e-9039-df6537178be5.jpg"
+    },
+    {
+      "id": "04468656-8a9f-42cd-b41b-df44a6708cda",
+      "writedTo": "1",
+      "nickname": "희희힇",
+      "content": "스님 반가워요. 성불하십쇼.",
+      "createdAt": "2023.11.30 17:37:43",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/d13f1923-7a81-4b0e-9039-df6537178be5.jpg",
+      "userId": "yeolsss"
     }
   ]
 }
