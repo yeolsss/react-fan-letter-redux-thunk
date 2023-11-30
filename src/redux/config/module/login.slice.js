@@ -55,15 +55,16 @@ const loginSlice = createSlice({
   initialState,
   reducers: {
     setLogin: (state, action) => {
+      const { id, nickname, avatar, success, accessToken } = action.payload;
       state.userInstance = {
-        userId: action.payload.id,
-        nickname: action.payload.nickname,
-        avatar: action.payload.avatar,
-        accessToken: action.payload.accessToken,
-        success: action.payload.success,
+        userId: id,
+        nickname: nickname,
+        avatar: avatar || '',
+        accessToken: accessToken,
+        success: success,
       };
-      state.isLogin = action.payload.success;
-      localStorage.setItem('accessToken', action.payload.accessToken);
+      state.isLogin = success;
+      localStorage.setItem('accessToken', accessToken);
     },
   },
 });

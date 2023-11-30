@@ -7,11 +7,12 @@ import {
 } from '../styles/myProfile.js';
 import Avatar from './Avatar.jsx';
 import {
+  __getLoginState,
   selectorLoginData,
   setLogin,
 } from '../redux/config/module/login.slice.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import api from '../axios/auth.api.js';
 import { printError } from '../redux/config/module/error.slice.js';
 import { printSuccess } from '../redux/config/module/success.slice.js';
@@ -19,6 +20,7 @@ import { setIsLoading } from '../redux/config/module/loading.slice.js';
 
 const MyProfile = () => {
   const { userInstance } = useSelector(selectorLoginData);
+
   const [updateState, setUpdateState] = useState(false);
   const [updateNickName, setUpdateNickName] = useState(userInstance.nickname);
   const [avatar, setAvatar] = useState(userInstance.avatar);
@@ -58,6 +60,14 @@ const MyProfile = () => {
       return;
     }
 
+    if (
+      !imageInputRef.current.files[0] &&
+      updateNickName === userInstance.nickname
+    ) {
+      alert('변경된 내용이 없습니다.');
+      return;
+    }
+
     const confirmResult = confirm('수정 하시겠습니까?');
     if (!confirmResult) return;
 
@@ -85,7 +95,7 @@ const MyProfile = () => {
 
       setUpdateNickName(updateNickName);
       setUpdateState(!updateState);
-      setAvatar(response.data.avatar);
+      setAvatar(response.data.avatar || '');
       dispatch(setIsLoading(false));
       dispatch(
         setLogin({
@@ -104,6 +114,18 @@ const MyProfile = () => {
       dispatch(setIsLoading(false));
     }
   };
+
+  useEffect(() => {
+    setUpdateNickName(userInstance.nickname);
+  }, [userInstance.nickname]);
+
+  useEffect(() => {
+    setAvatar(userInstance.avatar);
+  }, [userInstance.avatar]);
+
+  useEffect(() => {
+    dispatch(__getLoginState());
+  }, []);
 
   return (
     <StMyProfileWrapper>
