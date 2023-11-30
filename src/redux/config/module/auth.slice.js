@@ -7,6 +7,7 @@ const initialState = {
     isError: false,
     isSuccess: false,
     error: null,
+    isLoading: false,
   },
 };
 
@@ -33,17 +34,20 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [__signUp.pending]: (state, action) => {
+    [__signUp.pending]: (state) => {
       state.signUp.isError = false;
       state.signUp.isSuccess = false;
+      state.signUp.isLoading = true;
     },
     [__signUp.fulfilled]: (state, action) => {
       state.signUp.isError = false;
       state.signUp.isSuccess = true;
+      state.signUp.isLoading = false;
     },
     [__signUp.rejected]: (state, action) => {
       state.signUp.isError = true;
       state.signUp.isSuccess = false;
+      state.signUp.isLoading = false;
       state.signUp.error = action.payload;
     },
   },

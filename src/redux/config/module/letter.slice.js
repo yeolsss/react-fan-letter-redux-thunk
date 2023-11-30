@@ -1,12 +1,31 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../../axios/jsonServer.api.js';
 import { printError } from './error.slice.js';
-
-const LETTER_LOCAL_STORAGE_KEY = 'fan_letter';
+import { printSuccess } from './success.slice.js';
 
 const initialState = {
   letters: [],
-  isLoading: false,
+  searchLettersStatus: {
+    isLoading: false,
+    isError: false,
+    error: null,
+  },
+  addLetterStatus: {
+    isLoading: false,
+    isError: false,
+    error: null,
+  },
+  updateLettersStatus: {
+    isLoading: false,
+    isError: false,
+    error: null,
+    timeStamp: null,
+  },
+  deleteLetterStatus: {
+    isLoading: false,
+    isError: false,
+    error: null,
+  },
 };
 
 export const __searchLetters = createAsyncThunk(
@@ -16,11 +35,10 @@ export const __searchLetters = createAsyncThunk(
       const response = await api.get(`/letters`);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
-      console.log(error);
       thunkAPI.dispatch(
         printError({
           isError: true,
-          errorMessage: error.response.data.message,
+          errorMessage: '데이터 호출에 실패했습니다.',
         }),
       );
       return thunkAPI.rejectWithValue(error);
@@ -35,7 +53,6 @@ export const __addLetter = createAsyncThunk(
       const response = await api.post('/letters', payload);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
-      console.log(error);
       thunkAPI.dispatch(
         printError({
           isError: true,
@@ -47,40 +64,88 @@ export const __addLetter = createAsyncThunk(
   },
 );
 
+export const __deleteLetter = createAsyncThunk(
+  'letter/__deleteLetter',
+  async (payload, thunkAPI) => {
+    try {
+      const response = await api.delete(`/letters/${payload}`);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      thunkAPI.dispatch(
+        printError({
+          isError: true,
+          errorMessage: '삭제 오류!',
+        }),
+      );
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const __updateLetter = createAsyncThunk(
+  'letter/__updateLetter',
+  async (payload, thunkAPI) => {
+    try {
+      const response = await api.patch(`/letters/${payload.paramId}`, {
+        content: payload.content,
+      });
+      thunkAPI.dispatch(
+        printSuccess({
+          isSuccess: true,
+          successMessage: '글 수정이 완료되었습니다.',
+        }),
+      );
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      thunkAPI.dispatch(
+        printError({
+          isError: true,
+          errorMessage: '수정 오류!',
+        }),
+      );
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
 const letterSlice = createSlice({
   name: 'letter',
   initialState,
-  reducers: {
-    /*
-    updateLetter: (state, action) => {
-      state = state.map((letter) => {
-        if (letter.id === action.payload.id) {
-          letter.content = action.payload.content;
-        }
-        return letter;
-      });
-      localStorage.setItem(LETTER_LOCAL_STORAGE_KEY, JSON.stringify(state));
-      return state;
-    },
-    deleteLetter: (state, action) => {
-      return (state = state.filter((letter) => letter.id !== action.payload));
-    },*/
-  },
+  reducers: {},
   extraReducers: {
-    [__searchLetters.pending]: (state, action) => {},
+    [__searchLetters.pending]: (state) => {
+      state.searchLettersStatus.isLoading = true;
+    },
     [__searchLetters.fulfilled]: (state, action) => {
+      state.searchLettersStatus.isLoading = false;
       state.letters = action.payload;
     },
-    [__searchLetters.rejected]: (state, action) => {},
-    [__addLetter.pending]: (state, action) => {},
+    [__searchLetters.rejected]: (state) => {
+      state.searchLettersStatus.isLoading = false;
+    },
+    [__addLetter.pending]: (state) => {
+      state.addLetterStatus.isLoading = true;
+    },
     [__addLetter.fulfilled]: (state, action) => {
+      state.addLetterStatus.isLoading = false;
       state.letters = [...state.letters, action.payload];
     },
-    [__addLetter.rejected]: (state, action) => {},
+    [__addLetter.rejected]: (state) => {
+      state.addLetterStatus.isLoading = false;
+    },
+    [__updateLetter.pending]: (state) => {
+      state.updateLettersStatus.isLoading = true;
+    },
+    [__updateLetter.fulfilled]: (state, action) => {
+      (state.updateLettersStatus.timestamp = new Date().toISOString()),
+        (state.updateLettersStatus.isLoading = false);
+      state.letters = [...state.letters, action.payload];
+    },
+    [__updateLetter.rejected]: (state) => {
+      state.updateLettersStatus.isLoading = false;
+    },
   },
 });
-
-export const { addLetter, updateLetter, deleteLetter } = letterSlice.actions;
 
 export const selectorLetters = (state) => state.letter;
 export default letterSlice.reducer;

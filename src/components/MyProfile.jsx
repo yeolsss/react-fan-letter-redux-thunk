@@ -15,6 +15,7 @@ import { useRef, useState } from 'react';
 import api from '../axios/auth.api.js';
 import { printError } from '../redux/config/module/error.slice.js';
 import { printSuccess } from '../redux/config/module/success.slice.js';
+import { setIsLoading } from '../redux/config/module/loading.slice.js';
 
 const MyProfile = () => {
   const { userInstance } = useSelector(selectorLoginData);
@@ -39,6 +40,7 @@ const MyProfile = () => {
     imageInputRef.current.click();
   };
   const handleFileChange = async (event) => {
+    dispatch(setIsLoading(true));
     const file = event.currentTarget.files[0];
     const formData = new FormData();
     formData.append('avatar', file);
@@ -55,16 +57,17 @@ const MyProfile = () => {
           successMessage: response.data.message,
         }),
       );
+      dispatch(setIsLoading(false));
       setAvatar(response.data.avatar);
       dispatch(setLogin({ ...userInstance, avatar: response.data.avatar }));
     } catch (error) {
-      console.log(error);
       dispatch(
         printError({
           isError: true,
           errorMessage: '이미지 등록에 실패했습니다.',
         }),
       );
+      dispatch(setIsLoading(false));
     }
   };
 
@@ -77,6 +80,7 @@ const MyProfile = () => {
     const confirmResult = confirm('수정 하시겠습니까?');
     if (!confirmResult) return;
 
+    dispatch(setIsLoading(true));
     const formData = new FormData();
     formData.append('nickname', updateNickName);
     try {
@@ -94,16 +98,16 @@ const MyProfile = () => {
       );
       setUpdateNickName(updateNickName);
       setUpdateState(!updateState);
-      console.log(userInstance);
+      dispatch(setIsLoading(false));
       dispatch(setLogin({ ...userInstance, nickname: updateNickName }));
     } catch (error) {
-      console.log(error);
       dispatch(
         printError({
           isError: true,
           errorMessage: '프로필 업데이트에 실패했습니다.',
         }),
       );
+      dispatch(setIsLoading(false));
     }
   };
 

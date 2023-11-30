@@ -1,5 +1,5 @@
-import LetterForm from './main/LetterForm';
-import LetterCard from './main/LetterCard';
+import LetterForm from '../components/main/LetterForm.jsx';
+import LetterCard from '../components/main/LetterCard.jsx';
 import {
   StContainer,
   StEmptyDataLi,
@@ -11,10 +11,12 @@ import {
   selectorLetters,
 } from '../redux/config/module/letter.slice.js';
 import { useEffect } from 'react';
+import { setIsLoading } from '../redux/config/module/loading.slice.js';
 
 function Home() {
   const member = useSelector((state) => state.member);
-  const { letters } = useSelector(selectorLetters);
+  const { letters, addLetterStatus } = useSelector(selectorLetters);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,8 +24,12 @@ function Home() {
   }, []);
 
   const currentMemberLetter = letters.filter(
-    (letter) => letter.writedTo === member.currentMember,
+    (letter) => letter.writeTo === member.currentMember,
   );
+
+  useEffect(() => {
+    dispatch(setIsLoading(addLetterStatus.isLoading));
+  }, [addLetterStatus]);
 
   return (
     <StContainer>

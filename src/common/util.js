@@ -14,7 +14,7 @@ export const getMembers = [
 
 export function Letter(
   id,
-  writedTo,
+  writeTo,
   nickname,
   content,
   createdAt,
@@ -22,7 +22,7 @@ export function Letter(
   userId,
 ) {
   this.id = id;
-  this.writedTo = writedTo;
+  this.writeTo = writeTo;
   this.nickname = nickname;
   this.content = content;
   this.createdAt = createdAt;

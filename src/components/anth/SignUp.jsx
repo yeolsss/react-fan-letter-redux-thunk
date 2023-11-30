@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import ShardInput from '../../shared/ShardInput.jsx';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { __signUp } from '../../redux/config/module/auth.slice.js';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  __signUp,
+  selectSignUp,
+} from '../../redux/config/module/auth.slice.js';
 import 'react-toastify/ReactToastify.min.css';
 import { StButton, StForm, StTitle, StWrapper } from './style.js';
+import { setIsLoading } from '../../redux/config/module/loading.slice.js';
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -13,6 +17,8 @@ const SignUp = () => {
     password: '',
     nickname: '',
   });
+
+  const { isLoading, isError, error } = useSelector(selectSignUp);
 
   const handleOnChangeSignUp = (e, type) => {
     setSignUpState({
@@ -30,6 +36,9 @@ const SignUp = () => {
     };
     dispatch(__signUp(newSignUpUser));
   };
+  useEffect(() => {
+    dispatch(setIsLoading(isLoading));
+  }, [isLoading]);
 
   return (
     <>

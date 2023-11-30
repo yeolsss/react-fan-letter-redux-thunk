@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import Home from '../components/Home';
-import Detail from '../components/Detail';
+import Home from '../pages/Home.jsx';
+import Detail from '../pages/Detail.jsx';
 import Layout from '../pages/Layout';
 import { DETAIL_PATH } from '../common/util';
 import { Auth } from '../pages/Auth.jsx';
