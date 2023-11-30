@@ -1,19 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import ShardInput from '../../shared/ShardInput.jsx';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import 'react-toastify/ReactToastify.min.css';
 import { StButton, StForm, StTitle, StWrapper } from './style.js';
 import api from '../../axios/auth.api.js';
-import {
-  selectorLoginData,
-  setLogin,
-} from '../../redux/config/module/login.slice.js';
+import { setLogin } from '../../redux/config/module/login.slice.js';
 import { printError } from '../../redux/config/module/error.slice.js';
-import {
-  printSuccess,
-  selectSuccess,
-} from '../../redux/config/module/success.slice.js';
+import { printSuccess } from '../../redux/config/module/success.slice.js';
 
 const Login = () => {
   const dispatch = useDispatch();
