@@ -1,15 +1,19 @@
 import { Router } from './shared/Router';
-import { StContainer } from './styles/Container.js';
+import { StContainer, StSpinnersWrapper } from './styles/Container.js';
 import { toast, ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { selectError } from './redux/config/module/error.slice.js';
 import { useEffect } from 'react';
 import { selectSuccess } from './redux/config/module/success.slice.js';
 import 'react-toastify/ReactToastify.min.css';
+import { SyncLoader } from 'react-spinners';
+import { selectorLoading } from './redux/config/module/loading.slice.js';
 
 function App() {
   const errorData = useSelector(selectError);
   const successData = useSelector(selectSuccess);
+  const { isLoadingModal } = useSelector(selectorLoading);
+  console.log(isLoadingModal);
 
   useEffect(() => {
     if (successData.isSuccess) {
@@ -45,6 +49,10 @@ function App() {
     <StContainer>
       <Router />
       <ToastContainer />
+
+      <StSpinnersWrapper $isVisible={isLoadingModal}>
+        <SyncLoader />
+      </StSpinnersWrapper>
     </StContainer>
   );
 }

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Avatar from './Avatar';
+import Avatar from '../components/Avatar.jsx';
 import {
   StButtonWrapper,
   StContentForm,
@@ -9,28 +9,35 @@ import {
   StMemberNameWrapper,
   StWriterInfoWrapper,
 } from '../styles/detail/StDetail.js';
-import { validData } from '../common/util';
+import { validData } from '../common/util.js';
 import { setCurrentMember } from '../redux/config/module/member.slice.js';
 import { printError } from '../redux/config/module/error.slice.js';
 import api from '../axios/jsonServer.api.js';
-import { printSuccess } from '../redux/config/module/success.slice.js';
 import { selectorLoginData } from '../redux/config/module/login.slice.js';
+import {
+  __deleteLetter,
+  __updateLetter,
+  selectorLetters,
+} from '../redux/config/module/letter.slice.js';
+import { setIsLoading } from '../redux/config/module/loading.slice.js';
 
 function Detail() {
   const { userInstance } = useSelector(selectorLoginData);
+  const { updateLettersStatus } = useSelector(selectorLetters);
+
   const { id: paramId, memberId } = useParams();
   const dispatch = useDispatch();
 
   const [letter, setLetter] = useState({
     id: '',
-    writedTo: '',
+    writeTo: '',
     nickname: '',
     content: '',
     createdAt: '',
     avatar: '',
   });
 
-  const { id, writedTo, nickname, content, createdAt, avatar, userId } = letter;
+  const { id, writeTo, nickname, content, createdAt, avatar, userId } = letter;
 
   useEffect(() => {
     dispatch(setCurrentMember(memberId));
@@ -49,31 +56,22 @@ function Detail() {
 
   const updateLetterContentRef = useRef(null);
 
-  const member = members.getMembers[Number(writedTo)];
+  const member = members.getMembers[Number(writeTo)];
   const { name } = member;
 
   const handleOnSubmitDeleteLetter = async (e) => {
     const confirmResult = confirm('삭제 하시겠습니까?');
     if (!confirmResult) return;
-
-    try {
-      await api.delete(`/letters/${paramId}`);
-      dispatch(
-        printError({
-          isError: true,
-          errorMessage: '삭제되었습니다.',
-        }),
-      );
-      navigate('/');
-    } catch (error) {
-      dispatch(
-        printError({
-          isError: true,
-          errorMessage: '삭제가 실패했습니다.',
-        }),
-      );
-    }
+    dispatch(__deleteLetter(paramId));
+    dispatch(
+      printError({
+        isError: true,
+        errorMessage: '삭제되었습니다.',
+      }),
+    );
+    navigate('/');
   };
+
   // letter 수정
   const handleOnChangeUpdateLetter = (e) => {
     setLetterUpdateContent(e.target.value);
@@ -82,18 +80,9 @@ function Detail() {
   const handleOnSubmitUpdateLetter = async (e) => {
     e.preventDefault();
     if (validData(letterUpdateContent, '내용', updateLetterContentRef)) return;
-
+    setLetter({ ...letter, content: letterUpdateContent });
+    dispatch(__updateLetter({ paramId, content: letterUpdateContent }));
     try {
-      const response = api.patch(`/letters/${paramId}`, {
-        content: letterUpdateContent,
-      });
-      setLetter({ ...letter, content: letterUpdateContent });
-      dispatch(
-        printSuccess({
-          isSuccess: true,
-          successMessage: '글 수정이 완료되었습니다.',
-        }),
-      );
     } catch (error) {
       dispatch(
         printError({
@@ -128,6 +117,9 @@ function Detail() {
       }
     })();
   }, []);
+  useEffect(() => {
+    dispatch(setIsLoading(updateLettersStatus.isLoading));
+  }, [updateLettersStatus]);
 
   return (
     <StDetailContainer>

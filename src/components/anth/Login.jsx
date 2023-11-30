@@ -44,7 +44,6 @@ const Login = () => {
       );
       navigate('/');
     } catch (error) {
-      console.log(error);
       dispatch(
         printError({
           isError: true,

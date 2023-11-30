@@ -5,6 +5,7 @@ import auth from './module/auth.slice.js';
 import login from './module/login.slice.js';
 import error from './module/error.slice.js';
 import success from './module/success.slice.js';
+import loading from './module/loading.slice.js';
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     login,
     error,
     success,
+    loading,
   },
 });
 export default store;
