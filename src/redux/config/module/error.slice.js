@@ -11,7 +11,6 @@ const errorSlice = createSlice({
   initialState,
   reducers: {
     printError: (state, action) => {
-      console.log(action);
       state.isError = action.payload.isError;
       state.errorMessage = action.payload.errorMessage;
       state.errorTimestamp = new Date().toISOString();

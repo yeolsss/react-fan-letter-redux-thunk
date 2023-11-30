@@ -1,3 +1,17 @@
 
-###
+### get Data
 GET  {{JSON_SERVER_BASE_URL}}/letters
+
+
+
+### letter 등록
+POST {{JSON_SERVER_BASE_URL}}/letters
+Content-Type: application/json
+
+{
+  "writedTo": "3",
+  "nickname": "test",
+  "content": "test",
+  "createdAt": "test",
+  "avatar": ""
+}

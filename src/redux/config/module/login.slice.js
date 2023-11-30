@@ -2,10 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { checkToken } from '../../../common/util.js';
 
 const userInstance = {
-  id: '',
+  userId: '',
   nickname: '',
   avatar: '',
-  accessToken: '',
 };
 
 const initialState = {
@@ -21,6 +20,11 @@ const loginSlice = createSlice({
   initialState,
   reducers: {
     setLogin: (state, action) => {
+      state.userInstance = {
+        userId: action.payload.userId,
+        nickname: action.payload.nickname,
+        avatar: action.payload.avatar,
+      };
       state.isLogin = action.payload.success;
       localStorage.setItem('accessToken', action.payload.accessToken);
     },

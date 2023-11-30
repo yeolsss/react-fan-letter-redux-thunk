@@ -15,8 +15,8 @@ function LetterCard({ children }) {
         <Avatar imgPath={children.avatar} />
         <StLetterInfo>
           <h1>{children.nickname}</h1>
-          <span>{getDate(children.createdAt)}</span>
-          <span>{children.content.replaceAll('<br>', '')}</span>
+          <span>{children.createdAt}</span>
+          <span>{children.content}</span>
         </StLetterInfo>
       </StLetterCard>
     </Link>

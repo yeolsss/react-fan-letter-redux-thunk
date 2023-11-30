@@ -9,7 +9,6 @@ import { selectSuccess } from './redux/config/module/success.slice.js';
 function App() {
   const errorData = useSelector(selectError);
   const successData = useSelector(selectSuccess);
-  console.log(successData);
 
   useEffect(() => {
     if (successData.isSuccess) {

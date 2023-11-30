@@ -4,11 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import MultiButton from '../MultiButton';
 import { StForm, StSelector } from '../../styles/StInputForm';
 import { Letter, getDate, validData } from '../../common/util';
-import { addLetter } from '../../redux/config/module/letter.slice.js';
+import {
+  __addLetter,
+  addLetter,
+} from '../../redux/config/module/letter.slice.js';
 import { setCurrentMember } from '../../redux/config/module/member.slice.js';
+import { selectorLoginData } from '../../redux/config/module/login.slice.js';
+import login from '../anth/Login.jsx';
 
 function LetterForm() {
   const member = useSelector((state) => state.member);
+  const { userInstance } = useSelector(selectorLoginData);
+  console.log(userInstance);
 
   // * letter NickName state
   const [letterNickName, setLetterNickName] = useState('');
@@ -53,12 +60,12 @@ function LetterForm() {
     const letter = new Letter(
       id,
       mumberId,
-      letterNickName,
+      userInstance.nickname,
       letterContent.replaceAll('\n', '<br>'),
       getDate(),
     );
 
-    dispatch(addLetter(letter));
+    dispatch(__addLetter(letter));
 
     setLetterNickName('');
     setLetterContent('');
