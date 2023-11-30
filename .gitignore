@@ -173,5 +173,7 @@ fabric.properties
 *.vsix
 
 *.http
+
 .env
 .env.*
+
