@@ -16,8 +16,16 @@ Content-Type: application/json
   "avatar": ""
 }
 
-###
-
+### get letter
 
 GET {{JSON_SERVER_BASE_URL}}/letters?id=e49943a0-7b90-495f-8a3f-427a2b446a41
 
+
+### patch letter
+PATCH {{JSON_SERVER_BASE_URL}}/letters/e49943a0-7b90-495f-8a3f-427a2b446a41
+Content-Type: application/json
+
+{
+  "id":"e49943a0-7b90-495f-8a3f-427a2b446a41",
+  "content": "test!!!!"
+}
