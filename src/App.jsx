@@ -13,7 +13,6 @@ function App() {
   const errorData = useSelector(selectError);
   const successData = useSelector(selectSuccess);
   const { isLoadingModal } = useSelector(selectorLoading);
-  console.log(isLoadingModal);
 
   useEffect(() => {
     if (successData.isSuccess) {
@@ -49,7 +48,6 @@ function App() {
     <StContainer>
       <Router />
       <ToastContainer />
-
       <StSpinnersWrapper $isVisible={isLoadingModal}>
         <SyncLoader />
       </StSpinnersWrapper>
