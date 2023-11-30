@@ -4,38 +4,30 @@ import {
   StContainer,
   StEmptyDataLi,
   StLetterList,
-} from '../styles/main/StHome';
-import { useSelector } from 'react-redux';
+} from '../styles/main/StHome.js';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  ProgressCircle,
-  ProgressInner,
-  ProgressText,
-  ProgressWrapper,
-} from './ProgressCircle';
-import { AnimationWrapper, LoadingText, TrainImage } from './TrainProgress';
-import train from '../assets/free-icon-train-1008150.png';
+  __searchLetters,
+  selectorLetters,
+} from '../redux/config/module/letter.slice.js';
+import { useEffect } from 'react';
 
 function Home() {
   const member = useSelector((state) => state.member);
-  const letters = useSelector((state) => state.letter);
+  const { letters } = useSelector(selectorLetters);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(__searchLetters());
+  }, []);
 
   const currentMemberLetter = letters.filter(
     (letter) => letter.writedTo === member.currentMember,
   );
+
   return (
     <StContainer>
       <LetterForm />
-      {/* <ProgressWrapper>
-        <ProgressCircle />
-        <ProgressInner />
-        <ProgressText>로딩 중...</ProgressText>
-      </ProgressWrapper>
-      <>
-        <AnimationWrapper>
-          <TrainImage src={train} alt="Loading Train" />
-          <LoadingText>Loading...</LoadingText>
-        </AnimationWrapper>
-      </> */}
       <StLetterList>
         {currentMemberLetter.length === 0 ? (
           <StEmptyDataLi>

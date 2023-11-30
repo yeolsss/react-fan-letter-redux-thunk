@@ -5,7 +5,7 @@ import Avatar from '../Avatar';
 import {
   StLetterCard,
   StLetterInfo,
-} from '../../styles/main/StLetterCardComponent';
+} from '../../styles/main/StLetterCardComponent.js';
 
 function LetterCard({ children }) {
   const { currentMember } = useSelector((state) => state.member);
@@ -15,8 +15,8 @@ function LetterCard({ children }) {
         <Avatar imgPath={children.avatar} />
         <StLetterInfo>
           <h1>{children.nickname}</h1>
-          <span>{getDate(children.createdAt)}</span>
-          <span>{children.content.replaceAll('<br>', '')}</span>
+          <span>{children.createdAt}</span>
+          <p>{children.content}</p>
         </StLetterInfo>
       </StLetterCard>
     </Link>

@@ -37,6 +37,7 @@ export const StLetterInfo = styled.div`
   p {
     font-size: 2.4rem;
     color: var(--text-color);
+    white-space: pre-wrap;
   }
 
   > h1 {
