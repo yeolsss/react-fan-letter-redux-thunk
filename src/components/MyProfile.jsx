@@ -31,43 +31,24 @@ const MyProfile = () => {
   const handleOnChangeNickName = (e) => {
     setUpdateNickName(e.currentTarget.value);
   };
-  const handleUpdateCancel = () => {
+  const handleOnClickUpdateCancel = () => {
     setUpdateNickName(userInstance.nickname);
+    setAvatar(userInstance.avatar);
     setUpdateState(false);
   };
 
   const handleOnClickSelectImage = () => {
     imageInputRef.current.click();
   };
-  const handleFileChange = async (event) => {
-    dispatch(setIsLoading(true));
+  const handleFileChange = (event) => {
     const file = event.currentTarget.files[0];
-    const formData = new FormData();
-    formData.append('avatar', file);
-    try {
-      const response = await api.patch(`/profile`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${userInstance.accessToken}`,
-        },
-      });
-      dispatch(
-        printSuccess({
-          isSuccess: true,
-          successMessage: response.data.message,
-        }),
-      );
-      dispatch(setIsLoading(false));
-      setAvatar(response.data.avatar);
-      dispatch(setLogin({ ...userInstance, avatar: response.data.avatar }));
-    } catch (error) {
-      dispatch(
-        printError({
-          isError: true,
-          errorMessage: '이미지 등록에 실패했습니다.',
-        }),
-      );
-      dispatch(setIsLoading(false));
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -83,6 +64,11 @@ const MyProfile = () => {
     dispatch(setIsLoading(true));
     const formData = new FormData();
     formData.append('nickname', updateNickName);
+    // 이미지 추가 로직
+    if (imageInputRef.current.files[0]) {
+      formData.append('avatar', imageInputRef.current.files[0]);
+    }
+
     try {
       const response = await api.patch(`/profile`, formData, {
         headers: {
@@ -96,10 +82,18 @@ const MyProfile = () => {
           successMessage: response.data.message,
         }),
       );
+
       setUpdateNickName(updateNickName);
       setUpdateState(!updateState);
+      setAvatar(response.data.avatar);
       dispatch(setIsLoading(false));
-      dispatch(setLogin({ ...userInstance, nickname: updateNickName }));
+      dispatch(
+        setLogin({
+          ...userInstance,
+          nickname: updateNickName,
+          avatar: response.data.avatar,
+        }),
+      );
     } catch (error) {
       dispatch(
         printError({
@@ -122,23 +116,29 @@ const MyProfile = () => {
           accept={'image/*'}
           onChange={handleFileChange}
         />
-        <StImgButton onClick={handleOnClickSelectImage}>
-          <Avatar imgPath={avatar} />
-        </StImgButton>
+
         {updateState ? (
-          <StInput
-            type="text"
-            value={updateNickName}
-            onChange={handleOnChangeNickName}
-          />
+          <>
+            <StImgButton onClick={handleOnClickSelectImage}>
+              <Avatar imgPath={avatar} />
+            </StImgButton>
+            <StInput
+              type="text"
+              value={updateNickName}
+              onChange={handleOnChangeNickName}
+            />
+          </>
         ) : (
-          <p>{updateNickName}</p>
+          <>
+            <Avatar imgPath={avatar} />
+            <p>{updateNickName}</p>
+          </>
         )}
         <p>{userInstance.userId}</p>
 
         {updateState ? (
           <StButtonWrapper>
-            <StButton onClick={handleUpdateCancel}>취소</StButton>
+            <StButton onClick={handleOnClickUpdateCancel}>취소</StButton>
             <StButton onClick={handleOnClickUpdate}>수정완료</StButton>
           </StButtonWrapper>
         ) : (
