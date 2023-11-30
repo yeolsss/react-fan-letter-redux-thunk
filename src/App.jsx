@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectError } from './redux/config/module/error.slice.js';
 import { useEffect } from 'react';
 import { selectSuccess } from './redux/config/module/success.slice.js';
+import 'react-toastify/ReactToastify.min.css';
 
 function App() {
   const errorData = useSelector(selectError);
