@@ -1,60 +1,31 @@
 {
   "letters": [
     {
-      "id": 1,
-      "writedTo": "2",
-      "nickname": "test",
+      "id": "e49943a0-7b90-495f-8a3f-427a2b446a41",
+      "writedTo": "0",
+      "nickname": "그으으으으",
       "content": "test",
-      "createdAt": "test",
-      "avatar": ""
+      "createdAt": "2023.11.30 16:44:23",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/3c09b333-d907-404a-b4e0-37077279df02.jpg",
+      "userId": "yeolttt"
     },
     {
-      "writedTo": "3",
-      "nickname": "test",
-      "content": "test",
-      "createdAt": "test",
-      "avatar": "",
-      "id": 2
-    },
-    {
-      "id": "166ec687-0827-415d-8f74-33fa45134680",
+      "id": "ed07f191-0d85-4ec3-ae36-03fec71920be",
       "writedTo": "0",
-      "nickname": "test",
-      "content": "test",
-      "createdAt": "2023.11.30 12:26:07",
-      "avatar": ""
+      "nickname": "그으으으으",
+      "content": "화이뎅<br>",
+      "createdAt": "2023.11.30 16:44:29",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/3c09b333-d907-404a-b4e0-37077279df02.jpg",
+      "userId": "yeolttt"
     },
     {
-      "id": "54aaf7ee-ae45-4027-9c1b-2b73c6243f3a",
+      "id": "48db71b8-7db4-4a39-a2cc-b93107d6a45b",
       "writedTo": "0",
-      "nickname": "된다 ㅎㅎ",
-      "content": "킼ㅋ킼키키",
-      "createdAt": "2023.11.30 12:43:20",
-      "avatar": ""
-    },
-    {
-      "id": "c4b041e5-cd90-4d85-b17f-0c554cdeaba4",
-      "writedTo": "0",
-      "nickname": "난 그렇게 못살아..",
-      "content": "우으에에엥",
-      "createdAt": "2023.11.30 12:45:13",
-      "avatar": ""
-    },
-    {
-      "id": "9325600a-7217-4589-8a6b-6a857102a79a",
-      "writedTo": "0",
-      "nickname": "",
-      "content": "테스트요",
-      "createdAt": "2023.11.30 12:48:13",
-      "avatar": ""
-    },
-    {
-      "id": "8eccb188-a50c-493c-844b-2f05c7629789",
-      "writedTo": "0",
-      "nickname": "열이테스트",
-      "content": "test",
-      "createdAt": "2023.11.30 12:49:10",
-      "avatar": ""
+      "nickname": "그으으으으",
+      "content": "안녕\n\n하세요?",
+      "createdAt": "2023.11.30 16:45:07",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/3c09b333-d907-404a-b4e0-37077279df02.jpg",
+      "userId": "yeolttt"
     }
   ]
 }

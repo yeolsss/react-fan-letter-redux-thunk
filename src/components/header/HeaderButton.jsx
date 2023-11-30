@@ -1,6 +1,6 @@
 import { useMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { StHeaderBtnLi } from '../../styles/header/StHeader';
+import { StHeaderBtnLi } from '../../styles/header/StHeader.js';
 import {
   selectorMember,
   setCurrentMember,

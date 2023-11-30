@@ -55,3 +55,13 @@ export const StSelector = styled.div`
     padding: 1rem 0;
   }
 `;
+
+export const StNickName = styled.span`
+  font-size: 2.4rem;
+  margin: 1rem 0 2rem;
+  font-weight: bold;
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  padding: 1rem 0.5rem;
+  border-radius: 0.5rem;
+`;

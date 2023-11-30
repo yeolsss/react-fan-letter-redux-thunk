@@ -1,4 +1,4 @@
-import { StAvatarWrapper } from '../styles/StAvatar';
+import { StAvatarWrapper } from '../styles/StAvatar.js';
 import avatar from '../assets/download.png';
 
 function Avatar({ imgPath }) {

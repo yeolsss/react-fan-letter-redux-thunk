@@ -4,12 +4,20 @@ import Detail from '../components/Detail';
 import Layout from '../pages/Layout';
 import { DETAIL_PATH } from '../common/util';
 import { Auth } from '../pages/Auth.jsx';
-import { useSelector } from 'react-redux';
-import { selectorLoginData } from '../redux/config/module/login.slice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  __getLoginState,
+  selectorLoginData,
+} from '../redux/config/module/login.slice.js';
 import MyProfile from '../components/MyProfile.jsx';
+import { useEffect } from 'react';
 
 export const Router = () => {
   const { isLogin } = useSelector(selectorLoginData);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(__getLoginState());
+  }, [isLogin.isLogin]);
 
   return (
     <BrowserRouter>

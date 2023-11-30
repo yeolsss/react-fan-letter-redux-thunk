@@ -1,5 +1,5 @@
 import { Router } from './shared/Router';
-import { StContainer } from './styles/Container';
+import { StContainer } from './styles/Container.js';
 import { toast, ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { selectError } from './redux/config/module/error.slice.js';

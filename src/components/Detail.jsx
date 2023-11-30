@@ -8,13 +8,15 @@ import {
   StDetailContainer,
   StMemberNameWrapper,
   StWriterInfoWrapper,
-} from '../styles/detail/StDetail';
+} from '../styles/detail/StDetail.js';
 import { validData } from '../common/util';
 import {
   deleteLetter,
   updateLetter,
 } from '../redux/config/module/letter.slice.js';
 import { setCurrentMember } from '../redux/config/module/member.slice.js';
+import { printError } from '../redux/config/module/error.slice.js';
+import api from '../axios/jsonServer.api.js';
 
 function Detail() {
   const { id: parmaId, memberId } = useParams();
@@ -24,12 +26,6 @@ function Detail() {
   }, []);
 
   const members = useSelector((state) => state.member);
-  const letterList = useSelector((state) => state.letter);
-  const letter = letterList.find((letter) => letter.id === parmaId);
-
-  const { id, writedTo, nickname, content, createdAt, avatar } = letter;
-  const member = members.getMembers[Number(writedTo)];
-  const { name } = member;
 
   // * useHistory1
   const navigate = useNavigate();
@@ -71,13 +67,28 @@ function Detail() {
     setUpdateState(true);
   };
 
-  useEffect(() => {
-    setLetterUpdateContent(content.replaceAll('<br>', '\n'));
+  /*  useEffect(() => {
+    setLetterUpdateContent(content);
+  }, []);*/
+
+  // json server data
+  useEffect(async () => {
+    try {
+      const response = await api.get(`/letters?id=${parmaId}`);
+      console.log(response.data);
+    } catch (error) {
+      dispatch(
+        printError({
+          isError: true,
+          errorMessage: error,
+        }),
+      );
+    }
   }, []);
 
   return (
     <StDetailContainer>
-      <div>
+      {/*<div>
         <StWriterInfoWrapper>
           <div>
             <Avatar imgPath={avatar} />
@@ -119,7 +130,8 @@ function Detail() {
             handler={handleOnSubmitDeleteLetter}
           />
         </StButtonWrapper>
-      </div>
+      </div>*/}
+      test
     </StDetailContainer>
   );
 }

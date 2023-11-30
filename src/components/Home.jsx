@@ -4,7 +4,7 @@ import {
   StContainer,
   StEmptyDataLi,
   StLetterList,
-} from '../styles/main/StHome';
+} from '../styles/main/StHome.js';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   __searchLetters,

@@ -1,22 +1,16 @@
 import authInstance from '../axios/auth.api.js';
-import { useDispatch } from 'react-redux';
 
 export const DETAIL_PATH = '/detail/:memberId/:id';
 export const getMembers = [
-  new Member('0', '권경열', ''),
-  new Member('1', '송용승', ''),
-  new Member('2', '최문길', ''),
-  new Member('3', '전민석', ''),
-  new Member('4', '박유나', ''),
-  new Member('5', '이진호', ''),
-  new Member('6', '조미래', ''),
-  new Member('7', '김명섭', ''),
+  { id: '0', name: '권경열', avatar: '' },
+  { id: '1', name: '송용승', avatar: '' },
+  { id: '2', name: '최문길', avatar: '' },
+  { id: '3', name: '전민석', avatar: '' },
+  { id: '4', name: '박유나', avatar: '' },
+  { id: '5', name: '이진호', avatar: '' },
+  { id: '6', name: '조미래', avatar: '' },
+  { id: '7', name: '김명섭', avatar: '' },
 ];
-function Member(id, name, avatar) {
-  this.id = id;
-  this.name = name;
-  this.avatar = avatar;
-}
 
 export function Letter(
   id,
@@ -25,6 +19,7 @@ export function Letter(
   content,
   createdAt,
   avatar = '',
+  userId,
 ) {
   this.id = id;
   this.writedTo = writedTo;
@@ -32,6 +27,7 @@ export function Letter(
   this.content = content;
   this.createdAt = createdAt;
   this.avatar = avatar;
+  this.userId = userId;
 }
 
 // 날짜 만들기
@@ -70,7 +66,7 @@ export const checkToken = async () => {
 
   // 있다면 토큰을 검증.
   try {
-    const response = await authInstance.get('/user');
+    await authInstance.get('/user');
     return true;
   } catch (error) {
     console.error(error);

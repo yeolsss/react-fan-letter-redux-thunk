@@ -5,7 +5,7 @@ import Avatar from '../Avatar';
 import {
   StLetterCard,
   StLetterInfo,
-} from '../../styles/main/StLetterCardComponent';
+} from '../../styles/main/StLetterCardComponent.js';
 
 function LetterCard({ children }) {
   const { currentMember } = useSelector((state) => state.member);
@@ -16,7 +16,7 @@ function LetterCard({ children }) {
         <StLetterInfo>
           <h1>{children.nickname}</h1>
           <span>{children.createdAt}</span>
-          <span>{children.content}</span>
+          <p>{children.content}</p>
         </StLetterInfo>
       </StLetterCard>
     </Link>
