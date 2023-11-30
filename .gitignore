@@ -174,3 +174,6 @@ fabric.properties
 
 *.http
 
+.env
+.env.*
+

@@ -1,0 +1,38 @@
+{
+  "letters": [
+    {
+      "id": "48db71b8-7db4-4a39-a2cc-b93107d6a45b",
+      "writedTo": "0",
+      "nickname": "그으으으으",
+      "content": "안녕\n\n하세요?",
+      "createdAt": "2023.11.30 16:45:07",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/3c09b333-d907-404a-b4e0-37077279df02.jpg",
+      "userId": "yeolttt"
+    },
+    {
+      "writedTo": "3",
+      "nickname": "test",
+      "content": "test",
+      "createdAt": "test",
+      "avatar": "",
+      "id": "p5lOQ9I"
+    },
+    {
+      "id": "ba64af17-9f82-4cf8-a62f-649b0b112708",
+      "writedTo": "0",
+      "nickname": "그으으으으",
+      "content": "testtest",
+      "createdAt": "2023.11.30 17:29:02",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/3c09b333-d907-404a-b4e0-37077279df02.jpg",
+      "userId": "yeolttt"
+    },
+    {
+      "id": "fcebb967-6f4e-46c7-b6d2-f2a40e286749",
+      "writedTo": "0",
+      "nickname": "희희힇",
+      "content": "하이욧!",
+      "createdAt": "2023.11.30 17:34:13",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/d13f1923-7a81-4b0e-9039-df6537178be5.jpg"
+    }
+  ]
+}
