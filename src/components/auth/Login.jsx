@@ -18,15 +18,15 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [signUpState, setSignUpState] = useState({
+  const [loginState, setLoginState] = useState({
     id: '',
     password: '',
     nickname: '',
   });
 
   const handleOnChangeLogin = (e, type) => {
-    setSignUpState({
-      ...signUpState,
+    setLoginState({
+      ...loginState,
       [type]: e.target.value,
     });
   };
@@ -34,8 +34,8 @@ const Login = () => {
   const handleOnSubmitLogin = async (event) => {
     event.preventDefault();
     const newLoginUser = {
-      id: signUpState.id,
-      password: signUpState.password,
+      id: loginState.id,
+      password: loginState.password,
     };
 
     try {
@@ -67,7 +67,7 @@ const Login = () => {
           <StForm onSubmit={handleOnSubmitLogin}>
             <ShardInput
               type="text"
-              value={signUpState.id}
+              value={loginState.id}
               onChange={handleOnChangeLogin}
               minLength={4}
               maxLength={10}
@@ -76,7 +76,7 @@ const Login = () => {
             />
             <ShardInput
               type="password"
-              value={signUpState.password}
+              value={loginState.password}
               onChange={handleOnChangeLogin}
               minLength={4}
               maxLength={15}
