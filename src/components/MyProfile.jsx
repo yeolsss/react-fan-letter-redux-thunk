@@ -98,6 +98,7 @@ const MyProfile = () => {
       const updateAvatar = !response.data.avatar
         ? avatar
         : response.data.avatar;
+
       setUpdateNickName(updateNickName);
       setUpdateState(!updateState);
       setAvatar(updateAvatar);
@@ -114,7 +115,7 @@ const MyProfile = () => {
         avatar: updateAvatar,
       };
       const letterResponse = await jsonAPI.patch(
-        `/letters/updateByUserId/${userInstance.userId}`,
+        `/letters/sync-profile/${userInstance.userId}`,
         formObj,
       );
 
