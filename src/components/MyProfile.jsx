@@ -92,10 +92,9 @@ const MyProfile = () => {
           successMessage: response.data.message,
         }),
       );
-
       setUpdateNickName(updateNickName);
       setUpdateState(!updateState);
-      setAvatar(response.data.avatar || '');
+      setAvatar(response.data.avatar || avatar);
       dispatch(setIsLoading(false));
       dispatch(
         setLogin({
