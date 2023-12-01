@@ -8,6 +8,7 @@ import {
 
 function LetterCard({ children }) {
   const { currentMember } = useSelector((state) => state.member);
+
   return (
     <Link to={`/detail/${currentMember}/${children.id}`}>
       <StLetterCard>

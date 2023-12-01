@@ -33,6 +33,7 @@ export const __getLoginState = createAsyncThunk(
 
       const response = await authInstance.get('/user');
       thunkAPI.dispatch(setIsLoading(false));
+
       return thunkAPI.dispatch(
         setLogin({ ...response.data, accessToken: accessToken }),
       );
@@ -55,9 +56,10 @@ const loginSlice = createSlice({
   initialState,
   reducers: {
     setLogin: (state, action) => {
-      const { userId, nickname, avatar, success, accessToken } = action.payload;
+      const { id, userId, nickname, avatar, success, accessToken } =
+        action.payload;
       state.userInstance = {
-        userId,
+        userId: id || userId,
         nickname: nickname,
         avatar: avatar || '',
         accessToken: accessToken,
