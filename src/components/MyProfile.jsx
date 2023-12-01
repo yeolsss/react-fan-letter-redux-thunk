@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import api from '../axios/auth.api.js';
+import jsonAPI from '../axios/jsonServer.api.js';
 import { printError } from '../redux/config/module/error.slice.js';
 import { printSuccess } from '../redux/config/module/success.slice.js';
 import { setIsLoading } from '../redux/config/module/loading.slice.js';
@@ -73,6 +74,7 @@ const MyProfile = () => {
 
     dispatch(setIsLoading(true));
     const formData = new FormData();
+
     formData.append('nickname', updateNickName);
     // 이미지 추가 로직
     if (imageInputRef.current.files[0]) {
@@ -92,17 +94,31 @@ const MyProfile = () => {
           successMessage: response.data.message,
         }),
       );
+
+      const updateAvatar = !response.data.avatar
+        ? avatar
+        : response.data.avatar;
       setUpdateNickName(updateNickName);
       setUpdateState(!updateState);
-      setAvatar(response.data.avatar || avatar);
-      dispatch(setIsLoading(false));
+      setAvatar(updateAvatar);
       dispatch(
         setLogin({
           ...userInstance,
           nickname: updateNickName,
-          avatar: response.data.avatar,
+          avatar: updateAvatar,
         }),
       );
+      // 프로필 수정이 끝나면 letter도 수정
+      const formObj = {
+        nickname: updateNickName,
+        avatar: updateAvatar,
+      };
+      const letterResponse = await jsonAPI.patch(
+        `/letters/${userInstance.userId}`,
+        formObj,
+      );
+
+      dispatch(setIsLoading(false));
     } catch (error) {
       dispatch(
         printError({

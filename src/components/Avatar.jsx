@@ -12,3 +12,8 @@ function Avatar({ imgPath }) {
 }
 
 export default Avatar;
+
+/*
+ * 라우트 폴백
+ * route fallback
+ **/

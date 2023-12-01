@@ -9,7 +9,7 @@ import { DETAIL_PATH } from '../../common/util.js';
 
 function HeaderButton({ children }) {
   const member = useSelector(selectorMember);
-  const match = useMatch(DETAIL_PATH);
+  const match = useMatch('/');
 
   const dispatch = useDispatch();
   const handlerOnClickMemberSelector = (id) => {
@@ -19,8 +19,9 @@ function HeaderButton({ children }) {
     <StHeaderBtnLi
       key={children.id}
       $thisMemberId={children.id === member.currentMember}
+      $isMatch={match}
     >
-      {!match ? (
+      {match ? (
         <button onClick={() => handlerOnClickMemberSelector(children.id)}>
           {children.name}
         </button>

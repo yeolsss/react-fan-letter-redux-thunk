@@ -61,10 +61,9 @@ export const StHeaderBtnLi = styled.li`
     transition:
       background-color 0.2s ease-in-out,
       color 0.2s ease-in;
-    &:hover {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-    }
+    ${({ $isMatch }) =>
+      $isMatch &&
+      `&:hover {\nbackground-color: var(--bg-color);\ncolor: var(--text-color);\n}`}
   }
 `;
 
