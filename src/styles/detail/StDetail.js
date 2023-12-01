@@ -46,6 +46,7 @@ export const StContentForm = styled.form`
     line-height: 1.5;
     overflow: scroll;
     white-space: pre-wrap;
+    word-break: break-all;
     scrollbar-width: none;
     &::-webkit-scrollbar {
       display: none;
