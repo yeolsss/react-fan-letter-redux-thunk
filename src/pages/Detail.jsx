@@ -45,12 +45,11 @@ function Detail() {
 
   const members = useSelector((state) => state.member);
 
+  //TODO: 여기 오늘
   // * useHistory1
   const navigate = useNavigate();
-
   // * letter update textarea state
   const [letterUpdateContent, setLetterUpdateContent] = useState();
-
   // * letter update btn state
   const [updateState, setUpdateState] = useState(false);
 

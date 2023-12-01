@@ -7,7 +7,12 @@ import {
   selectSignUp,
 } from '../../redux/config/module/auth.slice.js';
 import 'react-toastify/ReactToastify.min.css';
-import { StButton, StForm, StTitle, StWrapper } from './style.js';
+import {
+  StButton,
+  StForm,
+  StTitle,
+  StWrapper,
+} from '../../styles/auth/Auth.js';
 import { setIsLoading } from '../../redux/config/module/loading.slice.js';
 
 const SignUp = () => {
@@ -18,7 +23,7 @@ const SignUp = () => {
     nickname: '',
   });
 
-  const { isLoading, isError, error } = useSelector(selectSignUp);
+  const { isLoading } = useSelector(selectSignUp);
 
   const handleOnChangeSignUp = (e, type) => {
     setSignUpState({

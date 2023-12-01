@@ -55,9 +55,9 @@ const loginSlice = createSlice({
   initialState,
   reducers: {
     setLogin: (state, action) => {
-      const { id, nickname, avatar, success, accessToken } = action.payload;
+      const { userId, nickname, avatar, success, accessToken } = action.payload;
       state.userInstance = {
-        userId: id,
+        userId,
         nickname: nickname,
         avatar: avatar || '',
         accessToken: accessToken,
