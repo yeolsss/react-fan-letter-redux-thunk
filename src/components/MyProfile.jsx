@@ -18,6 +18,8 @@ import jsonAPI from '../axios/jsonServer.api.js';
 import { printError } from '../redux/config/module/error.slice.js';
 import { printSuccess } from '../redux/config/module/success.slice.js';
 import { setIsLoading } from '../redux/config/module/loading.slice.js';
+import { checkToken } from '../common/util.js';
+import { useNavigate } from 'react-router-dom';
 
 const MyProfile = () => {
   const { userInstance } = useSelector(selectorLoginData);
@@ -25,6 +27,7 @@ const MyProfile = () => {
   const [updateState, setUpdateState] = useState(false);
   const [updateNickName, setUpdateNickName] = useState(userInstance.nickname);
   const [avatar, setAvatar] = useState(userInstance.avatar);
+  const navigate = useNavigate();
   const imageInputRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -56,6 +59,17 @@ const MyProfile = () => {
   };
 
   const handleOnClickUpdate = async () => {
+    if (!(await checkToken())) {
+      dispatch(
+        printError({
+          isError: true,
+          errorMessage: '토큰이 만료 되었습니다.',
+        }),
+      );
+      navigate('/login');
+      return;
+    }
+
     if (updateNickName.trim() === '') {
       alert('닉네임을 입력해 주세요.');
       return;
