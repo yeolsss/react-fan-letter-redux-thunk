@@ -33,7 +33,7 @@ export const __searchLetters = createAsyncThunk(
   'letter/__searchLetters',
   async (payload, thunkAPI) => {
     try {
-      const response = await api.get(`/letters`);
+      const response = await api.get(`/letters?_sort=createdAt&_order=desc`);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       thunkAPI.dispatch(
