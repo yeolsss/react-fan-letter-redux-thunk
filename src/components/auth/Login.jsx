@@ -3,7 +3,12 @@ import ShardInput from '../../shared/ShardInput.jsx';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import 'react-toastify/ReactToastify.min.css';
-import { StButton, StForm, StTitle, StWrapper } from './style.js';
+import {
+  StButton,
+  StForm,
+  StTitle,
+  StWrapper,
+} from '../../styles/auth/Auth.js';
 import api from '../../axios/auth.api.js';
 import { setLogin } from '../../redux/config/module/login.slice.js';
 import { printError } from '../../redux/config/module/error.slice.js';
@@ -32,7 +37,7 @@ const Login = () => {
       id: signUpState.id,
       password: signUpState.password,
     };
-    // 비동기 처리
+
     try {
       const response = await api.post('/login', newLoginUser);
       dispatch(setLogin(response.data));

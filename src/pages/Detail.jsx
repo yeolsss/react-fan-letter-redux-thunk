@@ -38,6 +38,7 @@ function Detail() {
   });
 
   const { id, writeTo, nickname, content, createdAt, avatar, userId } = letter;
+  console.log(userId, userInstance.userId);
 
   useEffect(() => {
     dispatch(setCurrentMember(memberId));
@@ -45,12 +46,11 @@ function Detail() {
 
   const members = useSelector((state) => state.member);
 
+  //TODO: 여기 오늘
   // * useHistory1
   const navigate = useNavigate();
-
   // * letter update textarea state
   const [letterUpdateContent, setLetterUpdateContent] = useState();
-
   // * letter update btn state
   const [updateState, setUpdateState] = useState(false);
 
