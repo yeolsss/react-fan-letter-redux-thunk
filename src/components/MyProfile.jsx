@@ -114,7 +114,7 @@ const MyProfile = () => {
         avatar: updateAvatar,
       };
       const letterResponse = await jsonAPI.patch(
-        `/letters/${userInstance.userId}`,
+        `/letters/updateByUserId/${userInstance.userId}`,
         formObj,
       );
 
