@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../../axios/jsonServer.api.js';
 import { printError } from './error.slice.js';
 import { printSuccess } from './success.slice.js';
+import { setIsLoading } from './loading.slice.js';
 
 const initialState = {
   letters: [],
@@ -68,7 +69,9 @@ export const __deleteLetter = createAsyncThunk(
   'letter/__deleteLetter',
   async (payload, thunkAPI) => {
     try {
+      thunkAPI.dispatch(setIsLoading(true));
       const response = await api.delete(`/letters/${payload}`);
+      thunkAPI.dispatch(setIsLoading(false));
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       thunkAPI.dispatch(
@@ -85,6 +88,7 @@ export const __deleteLetter = createAsyncThunk(
 export const __updateLetter = createAsyncThunk(
   'letter/__updateLetter',
   async (payload, thunkAPI) => {
+    thunkAPI.dispatch(setIsLoading(true));
     try {
       const response = await api.patch(`/letters/${payload.paramId}`, {
         content: payload.content,
@@ -95,6 +99,7 @@ export const __updateLetter = createAsyncThunk(
           successMessage: '글 수정이 완료되었습니다.',
         }),
       );
+      thunkAPI.dispatch(setIsLoading(false));
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       thunkAPI.dispatch(

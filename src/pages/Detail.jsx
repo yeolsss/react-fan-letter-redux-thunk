@@ -103,10 +103,13 @@ function Detail() {
   useEffect(() => {
     (async () => {
       try {
+        dispatch(setIsLoading(true));
         const response = await api.get(`/letters?id=${paramId}`);
         setLetterUpdateContent(response.data[0].content);
         setLetter({ ...response.data[0] });
+        dispatch(setIsLoading(false));
       } catch (error) {
+        dispatch(setIsLoading(false));
         dispatch(
           printError({
             isError: true,
@@ -116,9 +119,6 @@ function Detail() {
       }
     })();
   }, []);
-  useEffect(() => {
-    dispatch(setIsLoading(updateLettersStatus.isLoading));
-  }, [updateLettersStatus]);
 
   return (
     <StDetailContainer>
