@@ -37,7 +37,10 @@ export const StLetterInfo = styled.div`
   p {
     font-size: 2.4rem;
     color: var(--text-color);
-    white-space: pre-wrap;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
   }
 
   > h1 {
