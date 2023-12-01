@@ -38,7 +38,6 @@ function Detail() {
   });
 
   const { id, writeTo, nickname, content, createdAt, avatar, userId } = letter;
-  console.log(userId, userInstance.userId);
 
   useEffect(() => {
     dispatch(setCurrentMember(memberId));
