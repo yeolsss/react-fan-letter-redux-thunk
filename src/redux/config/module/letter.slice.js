@@ -133,7 +133,7 @@ const letterSlice = createSlice({
     },
     [__addLetter.fulfilled]: (state, action) => {
       state.addLetterStatus.isLoading = false;
-      state.letters = [...state.letters, action.payload];
+      state.letters = [action.payload, ...state.letters];
     },
     [__addLetter.rejected]: (state) => {
       state.addLetterStatus.isLoading = false;
