@@ -22,7 +22,7 @@ const initialState = {
 
 export const __getLoginState = createAsyncThunk(
   'login/__getLoginState',
-  async (payload, thunkAPI) => {
+  async (_, thunkAPI) => {
     thunkAPI.dispatch(setIsLoading(true));
     try {
       const accessToken = localStorage.getItem('accessToken') || '';

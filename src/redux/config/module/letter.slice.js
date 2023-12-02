@@ -20,6 +20,7 @@ const initialState = {
     isLoading: false,
     isError: false,
     error: null,
+
     timeStamp: null,
   },
   deleteLetterStatus: {
@@ -31,7 +32,7 @@ const initialState = {
 
 export const __searchLetters = createAsyncThunk(
   'letter/__searchLetters',
-  async (payload, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const response = await api.get(`/letters?_sort=createdAt&_order=desc`);
       return thunkAPI.fulfillWithValue(response.data);
@@ -39,7 +40,9 @@ export const __searchLetters = createAsyncThunk(
       thunkAPI.dispatch(
         printError({
           isError: true,
-          errorMessage: '데이터 호출에 실패했습니다.',
+          errorMessage:
+            error.response.data.message || '데이터 호출에 실패했습니다.',
+          isHome: error.response.data.isHome || false,
         }),
       );
       return thunkAPI.rejectWithValue(error);
@@ -57,7 +60,8 @@ export const __addLetter = createAsyncThunk(
       thunkAPI.dispatch(
         printError({
           isError: true,
-          errorMessage: '등록 오류!',
+          errorMessage: error.response.data.message || '등록 오류!',
+          isHome: error.response.data.isHome || false,
         }),
       );
       return thunkAPI.rejectWithValue(error);
@@ -77,7 +81,8 @@ export const __deleteLetter = createAsyncThunk(
       thunkAPI.dispatch(
         printError({
           isError: true,
-          errorMessage: '삭제 오류!',
+          errorMessage: error.response.data.message || '삭제 오류!',
+          isHome: error.response.data.isHome || false,
         }),
       );
       return thunkAPI.rejectWithValue(error);
