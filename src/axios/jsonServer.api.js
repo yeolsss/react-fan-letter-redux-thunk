@@ -6,28 +6,31 @@ const jsonServerInstance = axios.create({
   baseURL: import.meta.env.VITE_JSON_SERVER,
 });
 
+jsonServerInstance.get(`/letters`);
 jsonServerInstance.interceptors.request.use(
   async (config) => {
-    if (await checkToken()) {
+    const tokenResult = await checkToken();
+    if (tokenResult.success) {
       return config;
     } else {
-      return new Error('Not Token found');
+      return Promise.reject(tokenResult.error);
     }
   },
-  async (error) => {
+  (error) => {
     return Promise.reject(error);
   },
 );
 
 jsonServerInstance.interceptors.response.use(
   async (config) => {
-    if (await checkToken()) {
+    const tokenResult = await checkToken();
+    if (tokenResult.success) {
       return config;
     } else {
-      return new Error('Not Token found');
+      return Promise.reject(tokenResult.error);
     }
   },
-  async (error) => {
+  (error) => {
     return Promise.reject(error);
   },
 );

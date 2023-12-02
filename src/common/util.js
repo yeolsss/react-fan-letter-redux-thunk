@@ -58,7 +58,17 @@ export const checkToken = async () => {
 
   // 토큰이 없으면 오류를 반환 및 처리
   if (!accessToken) {
-    return false;
+    return {
+      error: {
+        status: false,
+        response: {
+          data: {
+            message: '토큰이 없습니다.',
+            isHome: true,
+          },
+        },
+      },
+    };
   }
   authInstance.defaults.headers.common[
     'Authorization'
@@ -67,9 +77,27 @@ export const checkToken = async () => {
   // 있다면 토큰을 검증.
   try {
     await authInstance.get('/user');
-    return true;
+    return {
+      success: {
+        status: true,
+        response: {
+          data: {
+            message: '토큰이 없습니다.',
+          },
+        },
+      },
+    };
   } catch (error) {
-    console.error(error);
-    return false;
+    return {
+      error: {
+        status: false,
+        response: {
+          data: {
+            message: '토큰이 유효하지 않습니다.',
+            isHome: true,
+          },
+        },
+      },
+    };
   }
 };

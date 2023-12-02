@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isError: false,
+  isHome: false,
   errorMessage: '',
   errorTimestamp: '',
 };
@@ -14,6 +15,7 @@ const errorSlice = createSlice({
       state.isError = action.payload.isError;
       state.errorMessage = action.payload.errorMessage;
       state.errorTimestamp = new Date().toISOString();
+      state.isHome = action.payload.isHome;
     },
   },
 });

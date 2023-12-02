@@ -39,7 +39,7 @@ const Login = () => {
     };
 
     try {
-      const response = await api.post('/login', newLoginUser);
+      const response = await api.post('/login?expiresIn=10s', newLoginUser);
       dispatch(setLogin(response.data));
       dispatch(
         printSuccess({
